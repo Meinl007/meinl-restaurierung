@@ -21,7 +21,7 @@
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"Meinl Restaurierung","description":"Restaurierungswerkstatt für Denkmalpflege: Beratung, Gutachten, Befunduntersuchung, Wand- und Deckenmalerei, Stuck und Putz, Stein, Holz, Skulpturen, Gemälde, Papier, Metall.","url":"https://www.meinl-company.com/","telephone":"+4917630402665","email":"meinlinformation@gmail.com","image":"https://www.meinl-company.com/img/logo-meinl.png","founder":{"@type":"Person","name":"Milan Meinl","honorificPrefix":"Dipl.-Rest.","jobTitle":"Restaurator M.A."},"foundingDate":"2014","address":{"@type":"PostalAddress","streetAddress":"Abensbergerstraße 24","postalCode":"93345","addressLocality":"Hausen-Großmuß","addressRegion":"Bayern","addressCountry":"DE"},"areaServed":"Bayern","memberOf":{"@type":"Organization","name":"Verband der Restauratoren (VDR) e. V.","url":"https://www.restauratoren.de/"},"sameAs":["https://www.instagram.com/meinl_restaurierung/","https://de.linkedin.com/in/dipl-rest-milan-meinl-m-a-28395b79"],"vatID":"DE320605034"}
 </script>
 </head>
-<body>
+<body class="video-hero">
 
 <!-- ================= NAVIGATION ================= -->
 <nav class="nav" id="nav" aria-label="Hauptnavigation">
@@ -47,12 +47,19 @@
   <a class="btn btn-gold" href="#kontakt">Projekt anfragen</a>
 </div>
 
-<!-- ================= HERO ================= -->
+<!-- ================= HERO: Video-Intro ================= -->
 <header class="hero" id="top">
+  <div class="hero-media" aria-hidden="true">
+    <div class="hero-motion">
+      <img class="hero-poster" src="video/schloss-schoenberg-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+      <video id="heroVideo" muted playsinline loop preload="auto" disablepictureinpicture disableremoteplayback tabindex="-1"></video>
+    </div>
+    <div class="hero-veil"></div>
+  </div>
   <div class="frame" aria-hidden="true"></div>
   <div class="hero-inner">
     <p class="kicker">Staatlich geprüfter Restaurator · Niederbayern · seit 2014</p>
-    <h1 style="margin:0"><img class="logo-hero" src="img/logo-meinl.png" alt="Meinl Restaurierung" width="1000" height="907"></h1>
+    <h1 style="margin:0"><img class="logo-hero" src="img/logo-meinl-white.png" alt="Meinl Restaurierung" width="1000" height="907" fetchpriority="high"></h1>
     <p class="hero-line">Wo Tradition auf Qualität und <b>neueste Technologien</b> trifft.</p>
     <p class="hero-sub">Spezialisierte restauratorische Arbeiten im Denkmalschutz – von Beratung, Gutachten und Befunduntersuchung über das Konzept bis zur Ausführung. Über 60 restaurierte Objekte in Bayern und darüber hinaus.</p>
     <div class="hero-cta">
@@ -60,9 +67,11 @@
       <a class="btn btn-line" href="#referenzen">Referenzen</a>
     </div>
   </div>
+  <a class="scroll-hint" href="#anspruch" aria-label="Weiter zur nächsten Sektion"><span>Entdecken</span><i></i></a>
+  <p class="hero-caption"><span>Schloss Schönberg, Wenzenbach · Drohnenaufnahme</span></p>
 </header>
 <div class="hero-photo">
-  <figure class="photo framed"><img src="img/hero-deckenmalerei.jpg" alt="Restauratoren von Meinl Restaurierung bei der Retusche einer barocken Deckenmalerei" width="1448" height="1086"></figure>
+  <figure class="photo framed"><img src="img/hero-deckenmalerei.jpg" alt="Restauratoren von Meinl Restaurierung bei der Retusche einer barocken Deckenmalerei" width="1448" height="1086" loading="lazy" decoding="async"></figure>
 </div>
 
 <!-- ================= ANSPRUCH ================= -->
