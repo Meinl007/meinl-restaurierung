@@ -46,6 +46,24 @@
       window.location.href='mailto:meinlinformation@gmail.com?subject='+encodeURIComponent('Anfrage über die Website – '+(v('f-objekt')||v('f-name')))+'&body='+encodeURIComponent(body);
     });
 
+    /* Lehrfilme: Start per Klick auf das Vorschaubild; der laufende Film steht auf breiten Bildschirmen groß über der Reihe,
+       Steuerleiste erst nach dem Start, immer nur ein Film gleichzeitig */
+    var films=[].slice.call(document.querySelectorAll('.film'));
+    films.forEach(function(f){
+      var v=f.querySelector('video'), b=f.querySelector('.film-play'), c=f.querySelector('.film-close');
+      if(!v||!b) return;
+      v.controls=false;
+      f._stop=function(){ if(!f.classList.contains('is-playing')) return; v.pause(); f.classList.remove('is-playing'); v.controls=false; if(c) c.hidden=true; v.load(); };
+      b.addEventListener('click',function(){
+        films.forEach(function(o){ if(o!==f&&o._stop) o._stop(); });
+        f.classList.add('is-playing'); v.controls=true; if(c) c.hidden=false;
+        var p=v.play(); if(p&&p.catch) p.catch(function(){});
+        if(f.scrollIntoView){ try{ f.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){ f.scrollIntoView(); } }
+      });
+      if(c) c.addEventListener('click',function(){ f._stop(); b.focus(); });
+      v.addEventListener('ended',function(){ f._stop(); });
+    });
+
     /* Video-Intro: Quelle je nach Gerät wählen, sanft einblenden, außerhalb des Sichtfelds pausieren */
     var video=document.getElementById('heroVideo');
     if(video&&hero){
