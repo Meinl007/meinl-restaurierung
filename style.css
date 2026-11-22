@@ -210,8 +210,12 @@
   .film-play-ico{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;box-shadow:0 10px 24px -10px rgba(220,92,34,.95);transition:transform .35s,background .35s}
   .film-play-ico svg{margin-left:2px}
   .film-play:hover .film-play-ico,.film-play:focus-visible .film-play-ico{transform:scale(1.08);background:var(--accent-text)}
-  .film-time{align-self:flex-end;margin-bottom:11px;white-space:nowrap;font-weight:400;font-size:11px;letter-spacing:.2em;text-transform:uppercase;line-height:1;padding:9px 12px;color:var(--ink);background:rgba(255,255,255,.94);border:1px solid var(--line)}
   .film.is-playing .film-play{display:none}
+  /* Vorschau-Schleife: liegt über dem Film, bis er gestartet wird; Startknopf auf der Epochentafel links, Laufzeit steht in der Zeile über dem Titel */
+  .film-media .film-teaser{z-index:1;pointer-events:none;background:#1e1b18}
+  .film.is-playing .film-teaser{display:none}
+  .film-play{justify-content:flex-start;padding-left:4.6%}
+  .film-media::after{display:none}
   .film{scroll-margin-top:92px}
   .film-close{position:absolute;z-index:3;top:14px;right:14px;padding:9px 12px;border:1px solid var(--line);background:rgba(255,255,255,.94);font-family:var(--font-body);font-weight:400;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;line-height:1;color:var(--ink);cursor:pointer}
   .film-close:hover{border-color:var(--line-strong);color:var(--accent-text)}

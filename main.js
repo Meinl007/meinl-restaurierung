@@ -53,9 +53,10 @@
       var v=f.querySelector('video'), b=f.querySelector('.film-play'), c=f.querySelector('.film-close');
       if(!v||!b) return;
       v.controls=false;
-      f._stop=function(){ if(!f.classList.contains('is-playing')) return; v.pause(); f.classList.remove('is-playing'); v.controls=false; if(c) c.hidden=true; v.load(); };
+      f._stop=function(){ if(!f.classList.contains('is-playing')) return; v.pause(); f.classList.remove('is-playing'); v.controls=false; if(c) c.hidden=true; v.load(); if(f._teaser) f._teaser(f._seen); };
       b.addEventListener('click',function(){
         films.forEach(function(o){ if(o!==f&&o._stop) o._stop(); });
+        if(f._teaser) f._teaser(false);
         f.classList.add('is-playing'); v.controls=true; if(c) c.hidden=false;
         var p=v.play(); if(p&&p.catch) p.catch(function(){});
         if(f.scrollIntoView){ try{ f.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){ f.scrollIntoView(); } }
@@ -63,6 +64,29 @@
       if(c) c.addEventListener('click',function(){ f._stop(); b.focus(); });
       v.addEventListener('ended',function(){ f._stop(); });
     });
+
+    /* Vorschau-Schleifen der Lehrfilme: stumm, erst laden wenn die Karte sichtbar wird, außerhalb des Sichtfelds anhalten;
+       bei reduzierter Bewegung oder Datensparmodus bleibt das Standbild */
+    var calm=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var net=navigator.connection||{};
+    var thrifty=net.saveData||/(^|[^\d])2g/.test(net.effectiveType||'');
+    if(!calm&&!thrifty&&'IntersectionObserver' in window){
+      var teaserIO=new IntersectionObserver(function(es){
+        es.forEach(function(e){ var f=e.target._film; f._seen=e.isIntersecting; f._teaser(e.isIntersecting); });
+      },{threshold:0.4});
+      films.forEach(function(f){
+        var t=f.querySelector('.film-teaser'), m=f.querySelector('.film-media');
+        if(!t||!m) return;
+        f._seen=false;
+        f._teaser=function(on){
+          if(on&&!f.classList.contains('is-playing')){
+            if(!t.getAttribute('src')){ t.muted=true; t.setAttribute('src',t.getAttribute('data-src')); }
+            var p=t.play(); if(p&&p.catch) p.catch(function(){});
+          } else if(!t.paused){ t.pause(); }
+        };
+        m._film=f; teaserIO.observe(m);
+      });
+    }
 
     /* Video-Intro: Quelle je nach Gerät wählen, sanft einblenden, außerhalb des Sichtfelds pausieren */
     var video=document.getElementById('heroVideo');
